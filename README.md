@@ -2,6 +2,14 @@
 
 This project aims to explore the differences in feature aspects between DiT-based diffusion models and Unet-based diffusion models. We found that DiT-based diffusion models have consistent feature scales across different layers, while Unet models exhibit significant changes in feature scales and resolutions across different layers.
 
+## Visualization
+DiT visualization:
+![DiT Visualization](assets/dit.png)
+
+SD visualization:
+![SD Visualization](assets/sd.png)
+
+## Acknowledgements
 The project utilizes code from the following repositories:
 - [diffusers](https://github.com/huggingface/diffusers)
 - [Plug-and-Play](https://github.com/MichalGeyer/plug-and-play)
