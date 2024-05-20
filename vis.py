@@ -4,6 +4,7 @@ import os
 from diffusers import PixArtAlphaPipeline
 from models.transformer_2d import Transformer2DModel
 from models.ptp_utils import register_attention_control, AttentionStore
+from models.ptp_utils import get_self_attention_map, save_attention_map_as_image
 import copy
 from sklearn.decomposition import PCA
 from torchvision import transforms as T
@@ -33,7 +34,11 @@ def visualize_and_save_features_pca(feature_maps_fit_data,feature_maps_transform
 
 
 generator = torch.Generator("cuda").manual_seed(1024)
-pipe = PixArtAlphaPipeline.from_pretrained("PixArt-alpha/PixArt-XL-2-512x512", torch_dtype=torch.float16)
+pixart_transformer = Transformer2DModel.from_pretrained("PixArt-alpha/PixArt-XL-2-512x512", subfolder="transformer",torch_dtype=torch.float16,)
+pipe = PixArtAlphaPipeline.from_pretrained(
+    "PixArt-alpha/PixArt-XL-2-512x512", 
+    transformer = pixart_transformer,
+    torch_dtype=torch.float16)
 pipe = pipe.to("cuda")
 
 controller = AttentionStore()
@@ -44,7 +49,6 @@ negative_prompt = 'worst quality, low quality, bad anatomy, watermark, text, blu
 
 images = pipe(prompt=prompt,negative_prompt=negative_prompt,height=512,width=512).images[0]
 
-from models.ptp_utils import get_self_attention_map, save_attention_map_as_image
 for i in range(28):
     attn_map = get_self_attention_map(controller,256,i,False)
     transform_attn_maps = copy.deepcopy(attn_map)
