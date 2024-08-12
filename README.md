@@ -2,6 +2,11 @@
 
 This project aims to explore the differences in feature aspects between DiT-based diffusion models and Unet-based diffusion models. We found that DiT-based diffusion models have consistent feature scales across different layers, while Unet models exhibit significant changes in feature scales and resolutions across different layers.
 
+## Contact
+I'm working on accelerating dit training and reasoning at the feature and token compression level, so don't hesitate to contact me if you're interested in doing **high-impact open source projects**!
+
+
+
 ## Visualization
 DiT visualization:
 ![DiT Visualization](assets/dit.png)
